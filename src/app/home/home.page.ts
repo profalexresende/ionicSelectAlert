@@ -1,4 +1,7 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/ban-types */
 import { Component } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +10,22 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(public alertController: AlertController) {}
+
+  async exibirAlerta(mensagem: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Título',
+      subHeader: 'Subtitulo',
+      message: mensagem,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+  verificaSelecionado(valor: any){
+    let mensagem: string;
+    mensagem=valor.detail.value;
+    this.exibirAlerta(mensagem);
+  }
 
 }
